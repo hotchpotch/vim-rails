@@ -1981,7 +1981,7 @@ function! s:configList(A,L,P)
   let all = s:relglob('config/',s:recurse)
   if RailsFilePath() =~ '\<vendor/plugins/.'
     let path = s:sub(RailsFilePath(),'<vendor/plugins/[^/]*/\zs.*','config/')
-    let all = s:relglob(path,s:recurse,".rb") . "\n" . all
+    let all = s:relglob(path,s:recurse) . "\n" . all
   endif
   return s:autocamelize(all,a:A)
 endfunction
