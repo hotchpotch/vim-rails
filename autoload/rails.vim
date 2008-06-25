@@ -2409,6 +2409,16 @@ function! s:libEdit(bang,cmd,...)
   endif
 endfunction
 
+function! s:configEdit(bang,cmd,...)
+  let extra = ""
+  if RailsFilePath() =~ '\<vendor/plugins/.'
+    let extra = s:sub(RailsFilePath(),'<vendor/plugins/[^/]*/\zs.*','config/')."\n"
+  endif
+  if a:0
+    call s:EditSimpleRb(a:bang,a:cmd,"task",a:0? a:1 : "",extra."config/","")
+  endif
+endfunction
+
 " }}}1
 " Alternate/Related {{{1
 
