@@ -1784,6 +1784,7 @@ function! s:BufFinderCommands()
   call s:addfilecmds("javascript")
   call s:addfilecmds("task")
   call s:addfilecmds("lib")
+  call s:addfilecmds("config")
   call s:addfilecmds("plugin")
 endfunction
 
@@ -1971,6 +1972,15 @@ function! s:libList(A,L,P)
   let all = s:relglob('lib/',s:recurse,".rb")
   if RailsFilePath() =~ '\<vendor/plugins/.'
     let path = s:sub(RailsFilePath(),'<vendor/plugins/[^/]*/\zs.*','lib/')
+    let all = s:relglob(path,s:recurse,".rb") . "\n" . all
+  endif
+  return s:autocamelize(all,a:A)
+endfunction
+
+function! s:configList(A,L,P)
+  let all = s:relglob('config/',s:recurse)
+  if RailsFilePath() =~ '\<vendor/plugins/.'
+    let path = s:sub(RailsFilePath(),'<vendor/plugins/[^/]*/\zs.*','config/')
     let all = s:relglob(path,s:recurse,".rb") . "\n" . all
   endif
   return s:autocamelize(all,a:A)
